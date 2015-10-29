@@ -22,7 +22,7 @@ import ij.ImageJ;
  *
  */
 public class SVDandFT {
-/*	
+	/*
 	public static void invertSVD(SimpleMatrix A)
 	{
 		
@@ -31,6 +31,8 @@ public class SVDandFT {
 		
 		//Compute the inverse of A without using inverse()				
 		//TODO 
+		Decomposition svd = new DecompositionSVD(A);
+		
 		
 		//Check output: re-compute A = U * S * V^T
 		SimpleMatrix temp = SimpleOperators.multiplyMatrixProd(svd.getU(), svd.getS());
@@ -53,7 +55,7 @@ public class SVDandFT {
 		
 		//Compare our implementation to svd.getreciprocalS()
 		System.out.println("Sinv = " + Sinv.toString());
-		System.out.println("Srec = " +svd.getreciprocalS().toString());
+		System.out.println("Srec = " + svd.getreciprocalS().toString());
 		
 		
 		SimpleMatrix tempInv = SimpleOperators.multiplyMatrixProd(svd.getV(), svd.getreciprocalS());
