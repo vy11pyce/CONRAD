@@ -40,6 +40,9 @@ public class DefectPixelInterpolation {
 		//padding
 		//TODO
 		//TODO
+		//double new_Heigth = image.getHeight()*2;
+		//double new_Width = image.getWidth()*2;
+		
 		
 		//fourier transform
 		Grid2DComplex G = new Grid2DComplex(1,1);//TODO
@@ -331,8 +334,8 @@ public class DefectPixelInterpolation {
 		
 				
 		//Load an image from file
-		String filename = "D:/02_lectures/DMIP/exercises/2014/3/testimg.bmp";
-		String filenameMask = "D:/02_lectures/DMIP/exercises/2014/3/mask.bmp";
+		String filename = "/proj/i5dmip/vy11pyce/Reconstruction/CONRAD/src/edu/stanford/rsl/tutorial/dmip/testimg.bmp";
+		String filenameMask = "/proj/i5dmip/vy11pyce/Reconstruction/CONRAD/src/edu/stanford/rsl/tutorial/dmip/mask.bmp";
 
 		Grid2D image = ImageUtil.wrapImagePlus(IJ.openImage(filename)).getSubGrid(0);
 		image.show("Ideal Input Image");
@@ -340,7 +343,7 @@ public class DefectPixelInterpolation {
 		Grid2D mask = ImageUtil.wrapImagePlus(IJ.openImage(filenameMask)).getSubGrid(0);
 		//Set some pixels as defect, elementwise multiply with defect pixel mask
 		Grid2D defectImage = new Grid2D(image);
-		//TODO
+		defectImage.getGridOperator().multiplyBy(defectImage, mask);
 		defectImage.show("Defect Image");
 		
 		
@@ -369,8 +372,9 @@ public class DefectPixelInterpolation {
 		boolean zeroPadding = true;
 		int maxIter = 4000;
 		
-		//TODO
-		Grid2D spectralFiltered = new Grid2D(1,1);//TODO
+		Grid2D spectralFiltered = dpi.interpolateSpectral(defectImage, mask, maxIter, zeroPadding);
+		spectralFiltered = new Grid2D(1,1);
+		
 		spectralFiltered.show("Spectral Filtered Image");
 		
 		//show difference image |Spectral - Original|
